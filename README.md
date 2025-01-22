@@ -1,0 +1,1 @@
+# synonym-voca-app
