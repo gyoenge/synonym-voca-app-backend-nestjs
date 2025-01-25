@@ -7,9 +7,11 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { CollectionStatus } from './collection-status.enum';
 import { CollectionStatusValidationPipe } from './pipes/collection-status-validation.pipe';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+// @UseGuards(AuthGuard())
 @Controller('collection')
-@UseGuards(AuthGuard())
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class CollectionController {
     constructor(private collectionService: CollectionService) {}
