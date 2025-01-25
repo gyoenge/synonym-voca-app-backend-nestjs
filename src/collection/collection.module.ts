@@ -10,6 +10,7 @@ import { CollectionRepository } from './collection.repository';
     TypeOrmModule.forFeature([Collection])
   ],
   controllers: [CollectionController],
-  providers: [CollectionService, CollectionRepository]
+  providers: [CollectionService, CollectionRepository],
+  exports: [TypeOrmModule]
 })
 export class CollectionModule {}

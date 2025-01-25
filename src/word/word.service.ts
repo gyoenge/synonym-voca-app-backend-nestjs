@@ -38,6 +38,11 @@ export class WordService {
         worditem.meaning = createWordDto.meaning;
         worditem.example = createWordDto.example; 
 
+        if (createWordDto.collection_ids) {
+            const collections = await this.wordRepository.getCollectionsByIds(createWordDto.collection_ids);
+            worditem.collections = collections;
+        }
+
         await this.wordRepository.save(worditem);
 
         return worditem; 
