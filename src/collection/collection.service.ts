@@ -3,12 +3,17 @@ import { CollectionRepository } from './collection.repository';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { Collection } from './collection.entity';
 import { CollectionStatus } from './collection-status.enum';
+import { GetUser } from 'src/auth/get-user.decorator';
 
 @Injectable()
 export class CollectionService {
     constructor(
         private collectionRepository: CollectionRepository
     ) {}
+
+    async getAllCollection(): Promise<Collection[]> {
+        return this.collectionRepository.find();
+    }
 
     createCollection(createCollectionDto: CreateCollectionDto): Promise<Collection> {
         return this.collectionRepository.createCollection(createCollectionDto);
