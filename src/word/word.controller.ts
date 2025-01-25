@@ -34,6 +34,7 @@ export class WordController {
     @Patch('/:id')
     @UsePipes(ValidationPipe)
     @ApiOperation({ summary: 'update word by id'})
+    @ApiParam({ name: 'id', description: 'word id', example: 1})
     @ApiBody({ description: 'word', examples: { example1: {value: { word:'hello', meaning: '안녕하신가요', example: 'hello world'}}}})
     updateWord(
         @Param('id', ParseIntPipe) id: number,
