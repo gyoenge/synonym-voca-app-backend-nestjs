@@ -8,6 +8,7 @@ import { CollectionStatus } from './collection-status.enum';
 import { CollectionStatusValidationPipe } from './pipes/collection-status-validation.pipe';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { User } from 'src/auth/user.entity';
 
 // @UseGuards(AuthGuard())
 @UseGuards(JwtAuthGuard)
@@ -26,9 +27,10 @@ export class CollectionController {
     @UsePipes(ValidationPipe)
     @ApiOperation({ summary: 'create collection' })
     createCollection(
-        @Body() createCollectionDto: CreateCollectionDto 
+        @Body() createCollectionDto: CreateCollectionDto,
+        @GetUser() user: User
     ) : Promise<Collection> {
-        return this.collectionService.createCollection(createCollectionDto);
+        return this.collectionService.createCollection(createCollectionDto, user);
     }
 
     @Get('/:id')
