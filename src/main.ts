@@ -11,6 +11,7 @@ async function bootstrap() {
     .setDescription('synonym voca app API description')
     .setVersion('1.0')
     // .addTag('tag')
+    .addBearerAuth() // Bearer Token 인증 추가
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
