@@ -1,6 +1,7 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
 import { CollectionStatus } from "./collection-status.enum";
 import { User } from "src/auth/user.entity";
+import { Word } from "src/word/word.entity";
 
 @Entity()
 export class Collection extends BaseEntity {
@@ -24,4 +25,7 @@ export class Collection extends BaseEntity {
 
     @RelationId((collection: Collection) => collection.user)
     user_id: number; 
+
+    @ManyToMany( type => Word, word => word.collections, {eager: false})
+    words: Word[];
 }
