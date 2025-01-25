@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Collection } from "src/collection/collection.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 @Unique(['username'])
@@ -11,4 +12,7 @@ export class User extends BaseEntity {
 
     @Column()
     password: string; 
+
+    @OneToMany( type => Collection, collection => collection.user, {eager:false})
+    collections: Collection[];
 }

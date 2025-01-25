@@ -8,21 +8,29 @@ import { CollectionStatus } from './collection-status.enum';
 import { CollectionStatusValidationPipe } from './pipes/collection-status-validation.pipe';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { User } from 'src/auth/user.entity';
 
 // @UseGuards(AuthGuard())
-@Controller('collection')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
+@Controller('collection')
 export class CollectionController {
     constructor(private collectionService: CollectionService) {}
+
+    @Get()
+    @ApiOperation({ summary: 'get all public&private collections' })
+    getAllCollection(): Promise<Collection[]> {
+        return this.collectionService.getAllCollection();
+    }
 
     @Post()
     @UsePipes(ValidationPipe)
     @ApiOperation({ summary: 'create collection' })
     createCollection(
-        @Body() createCollectionDto: CreateCollectionDto 
+        @Body() createCollectionDto: CreateCollectionDto,
+        @GetUser() user: User
     ) : Promise<Collection> {
-        return this.collectionService.createCollection(createCollectionDto);
+        return this.collectionService.createCollection(createCollectionDto, user);
     }
 
     @Get('/:id')
@@ -33,6 +41,8 @@ export class CollectionController {
     }
 
     @Delete('/:id')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: 'delete collection by id' })
     @ApiParam({ name: 'id', description: 'collection id', example: 1})
     deleteCollection(@Param('id', ParseIntPipe) id: number): Promise<void> {

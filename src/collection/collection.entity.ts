@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, RelationId } from "typeorm";
 import { CollectionStatus } from "./collection-status.enum";
+import { User } from "src/auth/user.entity";
 
 @Entity()
 export class Collection extends BaseEntity {
@@ -17,4 +18,10 @@ export class Collection extends BaseEntity {
 
     @Column({ type: 'enum', enum: CollectionStatus})
     status: CollectionStatus;
+
+    @ManyToOne( type => User, user => user.collections, {eager: false})
+    user: User; 
+
+    @RelationId((collection: Collection) => collection.user)
+    user_id: number; 
 }

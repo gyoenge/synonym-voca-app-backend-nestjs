@@ -3,6 +3,7 @@ import { CollectionRepository } from './collection.repository';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { Collection } from './collection.entity';
 import { CollectionStatus } from './collection-status.enum';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class CollectionService {
@@ -10,8 +11,12 @@ export class CollectionService {
         private collectionRepository: CollectionRepository
     ) {}
 
-    createCollection(createCollectionDto: CreateCollectionDto): Promise<Collection> {
-        return this.collectionRepository.createCollection(createCollectionDto);
+    async getAllCollection(): Promise<Collection[]> {
+        return this.collectionRepository.find();
+    }
+
+    createCollection(createCollectionDto: CreateCollectionDto, user: User): Promise<Collection> {
+        return this.collectionRepository.createCollection(createCollectionDto, user);
     }
 
     async getCollectionById(id: number): Promise<Collection> {
