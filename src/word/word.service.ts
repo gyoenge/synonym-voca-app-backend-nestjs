@@ -34,6 +34,10 @@ export class WordService {
     async updateWord(id: number, createWordDto: CreateWordDto): Promise<Word> {
         const worditem = await this.getWordById(id);
 
+        worditem.word = createWordDto.word;
+        worditem.meaning = createWordDto.meaning;
+        worditem.example = createWordDto.example; 
+
         await this.wordRepository.save(worditem);
 
         return worditem; 
