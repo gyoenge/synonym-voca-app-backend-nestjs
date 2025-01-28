@@ -1,14 +1,13 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { CollectionService } from './collection.service';
 import { Collection } from './collection.entity';
 import { CreateCollectionDto } from './dto/create-collection.dto';
-import { GetUser } from 'src/auth/get-user.decorator';
+import { GetUser } from '../auth/get-user.decorator';
 import { CollectionStatus } from './collection-status.enum';
 import { CollectionStatusValidationPipe } from './pipes/collection-status-validation.pipe';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { User } from 'src/auth/user.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { User } from '../auth/user.entity';
 
 // @UseGuards(AuthGuard())
 @UseGuards(JwtAuthGuard)

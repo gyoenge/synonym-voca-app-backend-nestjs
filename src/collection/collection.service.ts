@@ -3,7 +3,7 @@ import { CollectionRepository } from './collection.repository';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { Collection } from './collection.entity';
 import { CollectionStatus } from './collection-status.enum';
-import { User } from 'src/auth/user.entity';
+import { User } from '../auth/user.entity';
 
 @Injectable()
 export class CollectionService {

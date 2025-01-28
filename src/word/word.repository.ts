@@ -3,8 +3,8 @@ import { Word } from "./word.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateWordDto } from "./dto/create-word.dto";
 import { NotFoundException } from "@nestjs/common";
-import { Collection } from "src/collection/collection.entity";
-import { CollectionRepository } from "src/collection/collection.repository";
+import { Collection } from "../collection/collection.entity";
+import { CollectionRepository } from "../collection/collection.repository";
 
 export class WordRepository extends Repository<Word> {
     constructor(

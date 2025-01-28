@@ -11,7 +11,7 @@ import { DataSource } from 'typeorm';
     TypeOrmModule.forRoot(typeORMConfig),
     AuthModule,
     CollectionModule,
-    WordModule
+    WordModule,
   ],
 })
 export class AppModule implements OnModuleInit {
