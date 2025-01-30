@@ -1,5 +1,6 @@
 import { Collection } from "../collection/collection.entity";
 import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { WordPos } from "./word-pos.enum";
 
 @Entity()
 export class Word extends BaseEntity {
@@ -10,6 +11,9 @@ export class Word extends BaseEntity {
     word: string;
 
     @Column()
+    pos: WordPos;
+
+    @Column() 
     meaning: string; 
 
     @Column()

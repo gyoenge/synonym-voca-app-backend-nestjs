@@ -35,6 +35,7 @@ export class WordService {
         const worditem = await this.getWordById(id);
 
         worditem.word = createWordDto.word;
+        worditem.pos = createWordDto.pos; 
         worditem.meaning = createWordDto.meaning;
         worditem.example = createWordDto.example; 
 

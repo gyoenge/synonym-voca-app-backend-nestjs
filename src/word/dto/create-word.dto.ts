@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsNotEmpty, IsString } from "class-validator";
+import { WordPos } from "../word-pos.enum";
 
 export class CreateWordDto {
     @IsNotEmpty()
@@ -17,6 +18,13 @@ export class CreateWordDto {
         example: '안녕하세요'
     })
     meaning: string;
+
+    @IsNotEmpty()
+    @ApiProperty({
+        description: 'word p.o.s(Part Of Speech)', 
+        example: 'VERB'
+    })
+    pos: WordPos; 
 
     @IsString()
     @ApiProperty({
