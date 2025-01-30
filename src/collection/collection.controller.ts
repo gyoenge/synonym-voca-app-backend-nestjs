@@ -3,11 +3,11 @@ import { CollectionService } from './collection.service';
 import { Collection } from './collection.entity';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { GetUser } from '../auth/get-user.decorator';
-import { CollectionStatus } from './collection-status.enum';
 import { CollectionStatusValidationPipe } from './pipes/collection-status-validation.pipe';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { User } from '../auth/user.entity';
+import { updateCollectionDto } from './dto/update-collection.dto';
 
 // @UseGuards(AuthGuard())
 @UseGuards(JwtAuthGuard)
@@ -59,13 +59,13 @@ export class CollectionController {
     }
 
     @Patch('/:id')
-    @ApiOperation({ summary: 'update collection status by id' })
+    @ApiOperation({ summary: 'update collection by id' })
     @ApiParam({ name: 'id', description: 'collection id', example: 1})
-    @ApiBody({ description: 'collection status', examples: { example1: {value: { status:'PRIVATE'}}}})
+    @ApiBody({ description: 'collection status', examples: { example1: {value: { title: 'Test Updated Collection', description: "updataed description", status:'PRIVATE'}}}})
     updateCollectionStatus(
         @Param('id', ParseIntPipe) id: number,
-        @Body('status', CollectionStatusValidationPipe) status: CollectionStatus
+        @Body() updateCollectionDto: updateCollectionDto
     ): Promise<Collection> {
-        return this.collectionService.updateCollectionStatus(id, status)
+        return this.collectionService.updateCollectionStatus(id, updateCollectionDto)
     }
 }

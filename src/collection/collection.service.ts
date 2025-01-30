@@ -4,6 +4,7 @@ import { CreateCollectionDto } from './dto/create-collection.dto';
 import { Collection } from './collection.entity';
 import { CollectionStatus } from './collection-status.enum';
 import { User } from '../auth/user.entity';
+import { updateCollectionDto } from './dto/update-collection.dto';
 
 @Injectable()
 export class CollectionService {
@@ -50,10 +51,12 @@ export class CollectionService {
         }
     }
 
-    async updateCollectionStatus(id: number, status: CollectionStatus): Promise<Collection> {
+    async updateCollectionStatus(id: number, updateCollectionDto: updateCollectionDto): Promise<Collection> {
         const collection = await this.getCollectionById(id);
 
-        collection.status = status;
+        collection.title = updateCollectionDto.title;
+        collection.description = updateCollectionDto.description;
+        collection.status = updateCollectionDto.status;
         await this.collectionRepository.save(collection);
 
         return collection; 
