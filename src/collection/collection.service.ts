@@ -11,8 +11,21 @@ export class CollectionService {
         private collectionRepository: CollectionRepository
     ) {}
 
-    async getAllCollection(): Promise<Collection[]> {
-        return this.collectionRepository.find();
+    async getAllCollection(user: User): Promise<Collection[]> {
+        const query = this.collectionRepository.createQueryBuilder('collection')
+        query.where("collection.userUserId = :user_id", {user_id : user.user_id})
+        const collections = await query.getMany();
+
+        return collections;
+    }
+
+    async getAllPublicCollection(user: User): Promise<Collection[]> {
+        const query = this.collectionRepository.createQueryBuilder('collection')
+        query.where("collection.userUserId != :user_id", {user_id : user.user_id})
+            .andWhere("collection.status = :status", {status: CollectionStatus.PUBLIC})
+        const collections = await query.getMany();
+
+        return collections;
     }
 
     createCollection(createCollectionDto: CreateCollectionDto, user: User): Promise<Collection> {

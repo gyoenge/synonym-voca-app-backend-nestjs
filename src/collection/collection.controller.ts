@@ -17,9 +17,19 @@ export class CollectionController {
     constructor(private collectionService: CollectionService) {}
 
     @Get()
-    @ApiOperation({ summary: 'get all public&private collections' })
-    getAllCollection(): Promise<Collection[]> {
-        return this.collectionService.getAllCollection();
+    @ApiOperation({ summary: 'get all own (private&public) collections' })
+    getAllCollection(
+        @GetUser() user: User
+    ): Promise<Collection[]> {
+        return this.collectionService.getAllCollection(user);
+    }
+
+    @Get('/public')
+    @ApiOperation({ summary: 'get all other\'s public collections' })
+    getAllPublicCollection(
+        @GetUser() user: User
+    ): Promise<Collection[]> {
+        return this.collectionService.getAllPublicCollection(user);
     }
 
     @Post()

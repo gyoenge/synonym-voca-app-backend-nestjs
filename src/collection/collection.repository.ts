@@ -16,7 +16,7 @@ export class CollectionRepository extends Repository<Collection> {
         const collection = this.create({
             title,
             description,
-            status: CollectionStatus.PUBLIC,
+            status: CollectionStatus.PRIVATE,
             user
         })
 
