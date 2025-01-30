@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { AuthCredentialDto } from './dto/auth-credential.dto';
 import * as bcrypt from 'bcryptjs'
@@ -19,13 +19,17 @@ export class AuthService {
         const { username, password } = authCredentialDto;
         const user = await this.userRepository.findOne({ where: {username} })
 
+        if(!user) {
+            throw new NotFoundException('user not found'); // 404 Not Found
+        }
+
         if(user && (await bcrypt.compare(password, user.password))) {
             const payload = { username };
             const accessToken = await this.jwtService.sign(payload);
 
             return { accessToken };
         } else {
-            throw new UnauthorizedException('login failed');
+            throw new UnauthorizedException('login failed'); // 401 Unauthorized 
         }
     }
 }
