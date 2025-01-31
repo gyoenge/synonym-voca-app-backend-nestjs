@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, ParseIntPipe, Patch, Post, Query, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { WordService } from './word.service';
-import { ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { CreateWordDto } from './dto/create-word.dto';
 import { Word } from './word.entity';
+import { WordPos } from './word-pos.enum';
 
 @Controller('word')
 export class WordController {
@@ -15,6 +16,15 @@ export class WordController {
         @Body() createWordDto: CreateWordDto
     ) : Promise<Word> {
         return this.wordService.createWord(createWordDto);
+    }
+
+    @Get('/search')
+    @ApiOperation({ summary: 'get words by wordname' })
+    @ApiQuery({ name: 'word', description: 'Word name', example: 'hello' })
+    getWordsByName(
+        @Query('word') wordname: string
+    ): Promise<Word[]> {
+        return this.wordService.getWordsByName(wordname)
     }
 
     @Get('/:id')
@@ -35,11 +45,13 @@ export class WordController {
     @UsePipes(ValidationPipe)
     @ApiOperation({ summary: 'update word by id'})
     @ApiParam({ name: 'id', description: 'word id', example: 1})
-    @ApiBody({ description: 'word', examples: { example1: {value: { word:'hello', meaning: '안녕하신가요', example: 'hello world', collection_ids: [,]}}}})
+    @ApiBody({ description: 'word', examples: { example1: {value: { wordname:'hello', pos: WordPos.VERB, meaning: '안녕하신가요', example: 'hello world', collection_ids: [,]}}}})
     updateWord(
         @Param('id', ParseIntPipe) id: number,
         @Body() createWordDto: CreateWordDto 
     ): Promise<Word> {
         return this.wordService.updateWord(id, createWordDto);
     }
+
+    
 }

@@ -7,8 +7,8 @@ export class Word extends BaseEntity {
     @PrimaryGeneratedColumn()
     word_id: number; 
 
-    @Column()
-    word: string;
+    @Column({ type: 'varchar', length: 255 })
+    wordname: string;
 
     @Column()
     pos: WordPos;

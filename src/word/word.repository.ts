@@ -15,10 +15,10 @@ export class WordRepository extends Repository<Word> {
     }
 
     async createWord(createWordDto: CreateWordDto): Promise<Word> {
-        const { word, pos, meaning, example, collection_ids } = createWordDto; 
+        const { wordname, pos, meaning, example, collection_ids } = createWordDto; 
 
         const worditem = this.create({
-            word, pos, meaning, example
+            wordname, pos, meaning, example
         })
 
         if (collection_ids && collection_ids.length>0) {

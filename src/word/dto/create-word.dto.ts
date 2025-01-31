@@ -9,7 +9,7 @@ export class CreateWordDto {
         description: 'word in english', 
         example: 'hello'
     })
-    word: string;
+    wordname: string;
 
     @IsNotEmpty()
     @IsString()

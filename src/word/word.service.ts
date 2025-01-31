@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { WordRepository } from './word.repository';
 import { CreateWordDto } from './dto/create-word.dto';
 import { Word } from './word.entity';
@@ -34,7 +34,7 @@ export class WordService {
     async updateWord(id: number, createWordDto: CreateWordDto): Promise<Word> {
         const worditem = await this.getWordById(id);
 
-        worditem.word = createWordDto.word;
+        worditem.wordname = createWordDto.wordname;
         worditem.pos = createWordDto.pos; 
         worditem.meaning = createWordDto.meaning;
         worditem.example = createWordDto.example; 
@@ -49,4 +49,17 @@ export class WordService {
         return worditem; 
     }
 
+    async getWordsByName(wordname: string): Promise<Word[]> {
+        const query = this.wordRepository.createQueryBuilder('word')
+        query.andWhere('word.wordname = :word', { word: wordname }) 
+        const words = await query.getMany();
+
+        return words;
+
+        // if (!wordname) {
+        //     throw new BadRequestException("Invalid wordname: cannot be empty");
+        // }
+    
+        // return this.wordRepository.findBy({ wordname });
+    }
 }
