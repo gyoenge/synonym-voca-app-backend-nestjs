@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, Logger, NotFoundException } from '@nes
 import { WordRepository } from './word.repository';
 import { CreateWordDto } from './dto/create-word.dto';
 import { Word } from './word.entity';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class WordService {
@@ -67,6 +68,16 @@ export class WordService {
         const query = this.wordRepository.createQueryBuilder('word')
         query.innerJoin('word.collections', 'collections')
             .where('collections.collection_id = :collectionId', { collectionId }) 
+        const words = await query.getMany();
+
+        return words;
+    }
+
+    async getAllWords(user: User): Promise<Word[]> {
+        const query = this.wordRepository.createQueryBuilder('word')
+        query.innerJoin('word.collections', 'collections')
+            .innerJoin('collections.user', 'user')
+            .where('user.user_id = :userId', { userId: user.user_id }) 
         const words = await query.getMany();
 
         return words;

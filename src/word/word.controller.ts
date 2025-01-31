@@ -1,10 +1,15 @@
 import { Body, Controller, Delete, Get, Logger, Param, ParseIntPipe, Patch, Post, Query, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { WordService } from './word.service';
-import { ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { CreateWordDto } from './dto/create-word.dto';
 import { Word } from './word.entity';
 import { WordPos } from './word-pos.enum';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @Controller('word')
 export class WordController {
     constructor(private wordService: WordService) {}
@@ -25,6 +30,14 @@ export class WordController {
         @Query('word') wordname: string
     ): Promise<Word[]> {
         return this.wordService.getWordsByName(wordname)
+    }
+    
+    @Get('/all')
+    @ApiOperation({ summary: 'Get all words owned by the user' })
+    getAllWords(
+        @GetUser() user: User
+    ): Promise<Word[]> {
+        return this.wordService.getAllWords(user);
     }
 
     @Get('/:id')
@@ -61,5 +74,4 @@ export class WordController {
     ): Promise<Word[]> {
         return this.wordService.getWordsByCollectionId(collectionId);
     }
-    
 }
