@@ -53,5 +53,13 @@ export class WordController {
         return this.wordService.updateWord(id, createWordDto);
     }
 
+    @Get('/collection/:id')
+    @ApiOperation({ summary: 'Get words by collection ID' })
+    @ApiParam({ name: 'id', description: 'Collection ID', example: 1 })
+    getWordsByCollectionId(
+        @Param('id', ParseIntPipe) collectionId: number
+    ): Promise<Word[]> {
+        return this.wordService.getWordsByCollectionId(collectionId);
+    }
     
 }

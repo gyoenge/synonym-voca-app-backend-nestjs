@@ -62,4 +62,13 @@ export class WordService {
     
         // return this.wordRepository.findBy({ wordname });
     }
+
+    async getWordsByCollectionId(collectionId: number): Promise<Word[]> {
+        const query = this.wordRepository.createQueryBuilder('word')
+        query.innerJoin('word.collections', 'collections')
+            .where('collections.collection_id = :collectionId', { collectionId }) 
+        const words = await query.getMany();
+
+        return words;
+    }
 }
