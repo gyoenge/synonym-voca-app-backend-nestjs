@@ -1,11 +1,19 @@
-# synonym-voca-app
+# Synonym Voca App - Backend
+## Personal Side Project 
 
-## Description
+- Synonym Voca App is an application designed to **help with TOEFL study** by **supporting synonym-based vocabulary learning**.
+- Users can create their own word lists, as well as add, search for, and manage synonyms, allowing them to efficiently expand their vocabulary.
+- NestJS Project 
 
-📚 Synonym Voca App is an application designed to help with TOEFL study by supporting synonym-based vocabulary learning.
-Users can create their own word lists, as well as add, search for, and manage synonyms, allowing them to efficiently expand their vocabulary.
+### Description
 
-🔑 Key Features
+#### API Docs Swagger (Captured)
+
+<p align="center">
+<img width="70%" alt="image" src="https://github.com/user-attachments/assets/57acfd9d-1b85-4520-8498-a4f425de140d" />
+</p>
+
+#### Key Features
 
 - User Authentication
   - Sign up & Sign in
@@ -23,26 +31,23 @@ Users can create their own word lists, as well as add, search for, and manage sy
   - Retrieve all words owned by the user
   - Get words by collection ID
  
-👉 Upcoming Features
+#### Upcoming Features
 
 - Advanced synonym learning features will be added in future updates.
  
-🖥️ Mockup (Expected) Frontend Web Design
+#### Mockup (Expected) Frontend Web Design
 
-- <img width="466" height="307" alt="image" src="https://github.com/user-attachments/assets/a9d0b9cd-767a-4f73-b5b7-77f496fc6c11" />
+<p align="center">
+<img width="70%" alt="image" src="https://github.com/user-attachments/assets/a9d0b9cd-767a-4f73-b5b7-77f496fc6c11" />
+</p>
 
-📄 API Docs Swagger (Captured)
-
-- <img width="475" height="948" alt="image" src="https://github.com/user-attachments/assets/57acfd9d-1b85-4520-8498-a4f425de140d" />
-
-
-## Project setup
+#### Project setup
 
 ```bash
 $ npm install
 ```
 
-## Compile and run the project
+#### Compile and run the project
 
 ```bash
 # development
@@ -55,7 +60,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+#### Run tests
 
 ```bash
 # unit tests
@@ -68,20 +73,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## License
+### License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
